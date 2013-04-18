@@ -5,7 +5,7 @@ import org.lwjgl.util.vector._
 import java.nio.FloatBuffer
 
 object Common {
-  @inline def pow2(x : Float) = x * x
+  @inline def pow2[N](x : N)(implicit num : Numeric[N]) = num.times(x, x)
 }
 
 case class Vec3(x : Float, y : Float, z : Float){

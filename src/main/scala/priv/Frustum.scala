@@ -62,7 +62,7 @@ case class Frustum(p : Perspective, c : Camera){
   val m = Mat4x4.mult(p.M, c.M)
 
   def project(v : Vec3) = {
-    Mat4x4.mult(p.M , Mat4x4.mult(c.M , v - c.eye))
+    Mat4x4.mult(m , v - c.eye)
   }
 
   def isVisible(v : Vec3) = {
@@ -93,6 +93,6 @@ case class Frustum(p : Perspective, c : Camera){
 
   def unproject(v : Vec3) = {
     val mi = Mat4x4.invert(m)
-    Mat4x4.mult(mi, v)
+    Mat4x4.mult(mi, v) + c.eye
   }
 }

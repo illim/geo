@@ -37,15 +37,16 @@ object Main extends JFrame with App {
 
   val tree = loadTerrain()
 
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
+  glPolygonMode(GL_FRONT, GL_LINE)
   var frustum = Frustum(Perspective(90, 800, 600, 10, 2000), Camera(Vec3(500, 250, 600), Vec3(500, 0, 0)))
   updateFrustum(frustum)
   mainLoop()
 
   def loadTerrain() = {
-    val source = new TextureSource("terrain.png")
+//    val source = new TextureSource("terrain.png")
+    val source = new RawSource("AridRaw.raw")
     val (min, max) = source.minMax
-    val hfactor = 200 / (max - min)
+    val hfactor = 300 / (max - min)
     val scale = QuadScale(hfun = { h : Float => (h - min - 100) * hfactor }, xfactor = 10)
     println(s"scale : $scale, min : $min, max : $max")
     (new QuadBuilder(scale = scale)).build(source)
